@@ -57,6 +57,7 @@
             // 月份元素
             let $searchMonth = $(`#submarines-search-month`)
             let $month = $(`#month`)
+            $month.hide()
             let monthFlag = 0
             // 收益記錄元素
             let $records = $(`#submarines-records`)
@@ -80,6 +81,9 @@
                 if (`年份` === text) {
                     $month.html(`月份`)
                     monthFlag = 0
+                    $month.hide()
+                } else {
+                    $month.show()
                 }
                 yearFlag = 0
                 $searchYear.find(`ul`).hide()
