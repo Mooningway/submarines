@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>潛艇航行記錄</title>
+    <meta charset="UTF-8" />
+    <script src="./js/jquery.js"></script>
+    <script src="./js/submarines.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/submarines.css">
+</head>
+
+<body>
+    <div class="submarines">
+        <div class="submarines-top">
+            <img src="./image/chamomile-logo.jpg" />
+            <h2>FF XIV 潛艇航行記錄</h2>
+        </div>
+        
+        <div class="submarines-search">
+            <div id="submarines-search-year" class="submarines-search-select">
+                <button id="year" type="button">年份</button>
+                <ul>
+                    <li>年份</li>
+                    <li>2023 年</li>
+                </ul>
+            </div>
+            <div id="submarines-search-month" class="submarines-search-select">
+                <button id="month" type="button">月份</button>
+                <ul>
+                    <li>月份</li>
+                    <li>01 月</li>
+                    <li>02 月</li>
+                    <li>03 月</li>
+                    <li>04 月</li>
+                    <li>05 月</li>
+                    <li>06 月</li>
+                    <li>07 月</li>
+                    <li>08 月</li>
+                    <li>09 月</li>
+                    <li>10 月</li>
+                    <li>11 月</li>
+                    <li>12 月</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="submarines-records"></div>
+    </div>
+
+    <script>
+        // 生成收益記錄展示
+        $(function () {
+            // 年份元素
+            let $searchYear = $(`#submarines-search-year`)
+            let $year = $(`#year`)
+            let yearFlag = 0
+            // 月份元素
+            let $searchMonth = $(`#submarines-search-month`)
+            let $month = $(`#month`)
+            let monthFlag = 0
+            // 收益記錄元素
+            let $records = $(`#submarines-records`)
+
+            let recordsHtml = showRecords(records, itemMap)
+            $records.html(recordsHtml)
+
+            // 年份元素事件
+            $searchYear.on(`click`, `button`, function () {
+                if (yearFlag === 0) {
+                    yearFlag = 1
+                    $searchYear.find(`ul`).show()
+                } else {
+                    yearFlag = 0
+                    $searchYear.find(`ul`).hide()
+                }
+            })
+            $searchYear.on(`click`, `li`, function () {
+                let text = $(this).text()
+                $year.html(text)
+                if (`年份` === text) {
+                    $month.html(`月份`)
+                    monthFlag = 0
+                }
+                yearFlag = 0
+                $searchYear.find(`ul`).hide()
+
+                recordsHtml = showRecords(records, itemMap, text, $month.html())
+                $records.html(recordsHtml)
+            })
+            // 月份元素事件
+            $searchMonth.on(`click`, `button`, function () {
+                if (monthFlag === 0) {
+                    monthFlag = 1
+                    $searchMonth.find(`ul`).show()
+                } else {
+                    monthFlag = 0
+                    $searchMonth.find(`ul`).hide()
+                }
+            })
+            $searchMonth.on(`click`, `li`, function () {
+                let text = $(this).text()
+                $month.html(text)
+                monthFlag = 0
+                $searchMonth.find(`ul`).hide()
+
+                recordsHtml = showRecords(records, itemMap, $year.html(), text)
+                $records.html(recordsHtml)
+            })
+        })
+    </script>
+</body>
+
+</html>
