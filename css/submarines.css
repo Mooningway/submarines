@@ -1,3 +1,4 @@
+/* Native Style */
 * {
     margin: 0;
     padding: 0;
@@ -7,9 +8,44 @@ body {
     background-color: #282828;
 }
 
+/* Diy Style1 */
 .submarines {
     max-width: 1366px;
     margin: 0 auto;
+}
+
+.select {
+    margin-right: 20px;
+}
+
+.select button {
+    cursor: pointer;
+    padding: 3px 8px;
+    width: 100px;
+    text-align: center;
+    background-color: ghostwhite;
+    border: 1px solid ghostwhite;
+    color: #282828;
+}
+
+.select ul {
+    cursor: pointer;
+    z-index: 1000;
+    position: absolute;
+    width: 98px;
+    border: 1px solid ghostwhite;
+}
+
+.select li {
+    width: 98px;
+    background-color: ghostwhite;
+    color: #282828;
+    text-align: center;
+    list-style: none;
+}
+
+.select li:hover {
+    background-color: #FF9F0A;
 }
 
 .text-left {
@@ -29,6 +65,7 @@ body {
     margin: 30px 0;
 }
 
+/* Diy Style2 */
 .submarines-top img {
     width: 100px;
     height: 100px;
@@ -41,40 +78,8 @@ body {
     color: #FF9F0A;
 }
 
-.submarines-search div {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.submarines-search-select button {
-    cursor: pointer;
-    padding: 3px 8px;
-    width: 100px;
-    text-align: center;
-    background-color: ghostwhite;
-    border: 1px solid ghostwhite;
-    color: #282828;
-}
-
-.submarines-search-select ul {
-    cursor: pointer;
-    display: none;
-    z-index: 1000;
-    position: absolute;
-    width: 98px;
-    border: 1px solid ghostwhite;
-}
-
-.submarines-search-select li {
-    width: 98px;
-    background-color: ghostwhite;
-    color: #282828;
-    text-align: center;
-    list-style: none;
-}
-
-.submarines-search-select li:hover {
-    background-color: #FF9F0A;
+.submarines-search {
+    display: flex;
 }
 
 .submarines-records-table {
