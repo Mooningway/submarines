@@ -8,6 +8,7 @@ const SubmarinesData = {
                 { date: "2023-04-09", ship: "1船", remark: "第二天，我已經放平心態了，果然仍然是一堆寶石。", details: {} },
                 { date: "2023-04-10", ship: "1船", remark: "第三天總算有點收穫。", details: { "沉船戒指": 5, "沉船項鍊": 4 } },
                 { date: "2023-04-11", ship: "1船", remark: "第四天，成績有點OK。", details: { "上等沉船項鍊": 5 } },
+                { date: "2023-04-12", ship: "1船", remark: "今天有點差。", details: { "沉船耳飾": 5 } },
             ]
         }
     },
