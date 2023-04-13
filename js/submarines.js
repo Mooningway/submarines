@@ -1,10 +1,12 @@
 const { createApp } = Vue
-const { getRecords, years, months } = SubmarinesData
+const { records, items, years, months } = SubmarinesData
 
 createApp({
     data() {
         return {
             records: [],
+            getTotal: ``,
+            getDailyAvg: ``,
             year: undefined,
             yearShow: "",
             years: years,
@@ -25,9 +27,6 @@ createApp({
         this.getRecords(this.year, this.month)
     },
     methods: {
-        getRecords(year, month) {
-            this.records = getRecords(year, month)
-        },
         yearBtnClick() {
             this.yearsShow = true
         },
@@ -57,6 +56,69 @@ createApp({
             }
             this.monthsShow = false
             this.getRecords(this.year, this.month)
+        },
+
+        getRecords: function (year, month) {
+            let result = []
+            if (year && month) {
+                // Year + Month
+                let array = records[year][month]
+                if (array) {
+                    result.push(...array)
+                }
+            } else {
+                if (year) {
+                    // Year
+                    Object.keys(records[year]).forEach((mk) => {
+                        let array = records[year][mk]
+                        if (array) {
+                            result.push(...array)
+                        }
+                    })
+                } else {
+                    // ALL
+                    Object.keys(records).forEach((yk) => {
+                        Object.keys(records[yk]).forEach((mk) => {
+                            result.push(...records[yk][mk])
+                        })
+                    })
+                }
+            }
+    
+            let totalGets = 0
+            let day = 0
+            result.forEach((r) => {
+                let gets = 0
+                let getsView = []
+                let details = r.details
+                if (details) {
+                    let detailKeys = Object.keys(details)
+                    if (detailKeys && detailKeys.length > 0) {
+                        detailKeys.forEach((dkey) => {
+                            let num = details[dkey]
+                            let price = items[dkey]
+                            let tempPrice = Number(num).mul(price)
+                            gets = Number(gets).add(tempPrice)
+                            getsView.push(dkey + " × " + num)
+                        })
+                    } else {
+                        getsView.push("無")
+                    }
+                } else {
+                    getsView.push("無")
+                }
+                totalGets = Number(totalGets).add(gets)
+    
+                r.getsView = getsView.join("，")
+                r.gets = Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(gets)
+                day++
+            })
+
+            const getDailyAvg = Number(totalGets).div(day)
+            
+            this.records = result
+            this.getTotal = Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(totalGets)
+            this.getDailyAvg = Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(isNaN(getDailyAvg) ? 0 : getDailyAvg)
         }
     }
 }).mount("#submarines")

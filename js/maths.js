@@ -1,18 +1,18 @@
 
 Number.prototype.add = function (arg) {
-    return calAdd(arg, this)
+    return calAdd(this, arg)
 }
 
 Number.prototype.sub = function (arg) {
-    return calSub(arg, this)
+    return calSub(this, arg)
 }
 
 Number.prototype.mul = function (arg) {
-    return calMul(arg, this)
+    return calMul(this, arg)
 }
 
 Number.prototype.div = function (arg) {
-    return calDiv(arg, this)
+    return calDiv(this, arg)
 }
 
 function calAdd(arg1, arg2) {

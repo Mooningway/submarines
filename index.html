@@ -46,8 +46,7 @@
                         <th class="text-center">船名稱</th>
                         <th class="text-left">獲取</th>
                         <th class="text-left">備註</th>
-                        <th class="text-center">當天收益</th>
-                        <th class="text-center">總收益</th>
+                        <th class="text-center">收益</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +56,10 @@
                         <td class="text-left">{{ item.getsView }}</td>
                         <td class="text-left">{{ item.remark }}</td>
                         <td class="text-right">{{ item.gets }}</td>
-                        <td class="text-right">{{ item.totalGets }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="5">
+                            每日平均： {{ getDailyAvg }} &emsp;&emsp; 合計： {{ getTotal }}
                     </tr>
                 </tbody>
             </table>
