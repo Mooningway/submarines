@@ -4,7 +4,7 @@
 <head>
     <title>潛艇航行記錄</title>
     <meta charset="UTF-8" />
-    <script src="./js/vue.js"></script>
+    <script src="./js/jquery.js"></script>
     <script src="./js/maths.js"></script>
     <script src="./js/data.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/submarines.css">
@@ -18,24 +18,9 @@
         </div>
 
         <div class="submarines-search">
-            <div class="select">
-                <button type="button" @click="yearBtnClick">{{ yearShow }}</button>
-                <ul v-if="yearsShow">
-                    <li :key="'years' + index" v-for="(item, index) in years" @click="yearLiClick(item)">
-                        <span v-if="isNaN(item)">{{ item }}</span>
-                        <span v-else>{{ item }} 年</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="select">
-                <button type="button" @click="monthBtnClick">{{ monthShow }}</button>
-                <ul v-if="monthsShow">
-                    <li :key="'months' + index" v-for="(item, index) in months" @click="monthLiClick(item)">
-                        <span v-if="isNaN(item)">{{ item }}</span>
-                        <span v-else>{{ item }} 月</span>
-                    </li>
-                </ul>
-            </div>
+            <div class="select" id="year"></div>
+            <div class="select" id="month"></div>
+            <div class="select" id="submarine"></div>
         </div>
 
         <div>
@@ -49,19 +34,7 @@
                         <th class="text-center">收益</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr :key="'records' + index" v-for="(item, index) in records">
-                        <td class="text-center">{{ item.date }}</td>
-                        <td class="text-center">{{ item.ship }}</td>
-                        <td class="text-left">{{ item.getsView }}</td>
-                        <td class="text-left">{{ item.remark }}</td>
-                        <td class="text-right">{{ item.gets }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-right" colspan="5">
-                            每日平均： {{ getDailyAvg }} &emsp;&emsp; 合計： {{ getTotal }}
-                    </tr>
-                </tbody>
+                <tbody id="records"></tbody>
             </table>
         </div>
     </div>
