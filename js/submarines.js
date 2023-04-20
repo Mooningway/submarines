@@ -1,162 +1,50 @@
 // Data
-const years = SubmarinesData.years
-const months = SubmarinesData.months
+const yms = SubmarinesData.yms
 const submarines = SubmarinesData.submarines
 const records = SubmarinesData.records
 const items = SubmarinesData.items
 
 $(function () {
+    // Init data
     let currentDate = new Date()
-    // Elements
-    // Elements - Year
+    let submarine = `all`
     let year = currentDate.getFullYear()
-    let $year = $("#year")
-    $year.html(yearView(year)) // Load years
-    let $yearUl = $year.find("ul")
-    let $yearButton = $year.find("button")
-    $yearUl.hide()
-    // Elements - Month
     let month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
-    let $month = $("#month")
-    $month.html(monthView(month)) // Load months
-    let $monthButton = $month.find("button")
-    let $monthUl = $month.find("ul")
-    $monthUl.hide()
-    // Elements - Submarine
-    let submarine = submarines[0]
-    let $submarine = $("#submarine")
-    $submarine.html(submarineView(submarine)) // Load submarines
-    let $submarineButton = $submarine.find("button")
-    let $submarineUl = $submarine.find("ul")
-    $submarineUl.hide()
-    // Elements - Records
+    let date = year + `-` + month
+
+    // Elements
+    // Elements- records
     let $records = $("#records")
-    $records.html(recordView(year, month, submarine)) // Load records
-
-    // Event
-    // Event - Year
-    $yearButton.on("click", function () {
-        if ($yearUl.is(":visible") === true) {
-            $yearUl.hide()
-        } else {
-            $yearUl.show()
-        }
+    // Elements and Events - Year and Month
+    let $yearMonth = $("#year-month")
+    $yearMonth.eleSelect(yms, (value) => {
+        date = value
+        $records.html(recordView(date, submarine)) // Load submarines
     })
-    $yearUl.on("click", "li", function () {
-        $yearUl.hide()
-        let ylabel = $(this).html()
-        $yearButton.html(ylabel)
-        year = $(this).data("value")
 
-        if (isNaN(year)) {
-            $monthUl.hide()
-            month = months[0]
-            $monthButton.html(month)
-        }
-
-        $records.html(recordView(year, month, submarine)) // Load records
-    })
-    // Event - Month
-    $monthButton.on("click", function () {
-        if (isNaN(year)) {
-            return
-        }
-        if ($monthUl.is(":visible") === true) {
-            $monthUl.hide()
-        } else {
-            $monthUl.show()
-        }
-    })
-    $monthUl.on("click", "li", function () {
-        $monthUl.hide()
-        let mlabel = $(this).html()
-        $monthButton.html(mlabel)
-        month = $(this).data("value")
-
-        $records.html(recordView(year, month, submarine)) // Load records
-    })
-    // Event - Submarine
-    $submarineButton.on("click", function () {
-        if ($submarineUl.is(":visible") === true) {
-            $submarineUl.hide()
-        } else {
-            $submarineUl.show()
-        }
-    })
-    $submarineUl.on("click", "li", function () {
-        $submarineUl.hide()
-        let slabel = $(this).html()
-        $submarineButton.html(slabel)
-        submarine = $(this).data("value")
-
-        $records.html(recordView(year, month, submarine)) // Load records
+    // Elements and Events - Submarine
+    let $submarine = $("#submarine")
+    $submarine.eleSelect(submarines, (value) => {
+        submarine = value
+        $records.html(recordView(date, submarine)) // Load submarines
     })
 })
 
-const yearView = (yearValue) => {
-    let itemHtml = []
-    years.forEach((year) => {
-        itemHtml.push(`<li data-value="` + year + `">` + (isNaN(year) ? year : year + "") + `</li>`)
-    })
-    let html = []
-    html.push(`<button type="button">` + yearValue + `</button>`)
-    html.push(`<ul>`)
-    html.push(itemHtml.join(""))
-    html.push(`</ul>`)
-    return html.join("")
-}
-
-const monthView = (monthValue) => {
-    let itemHtml = []
-    months.forEach((month) => {
-        itemHtml.push(`<li data-value="` + month + `">` + (isNaN(month) ? month : month + "") + `</li>`)
-    })
-    let html = []
-    html.push(`<button type="button">` + monthValue + `</button>`)
-    html.push(`<ul>`)
-    html.push(itemHtml.join(""))
-    html.push(`</ul>`)
-    return html.join("")
-}
-
-const submarineView = (submarineValue) => {
-    let itemHtml = []
-    submarines.forEach((submarine) => {
-        itemHtml.push(`<li data-value="` + submarine + `">` + submarine + `</li>`)
-    })
-    let html = []
-    html.push(`<button type="button">` + submarineValue + `</button>`)
-    html.push(`<ul>`)
-    html.push(itemHtml.join(""))
-    html.push(`</ul>`)
-    return html.join("")
-}
-
-const recordView = (year, month, submarine) => {
-    let dateYm = undefined
-    if (!isNaN(year) && !isNaN(month)) {
-        dateYm = year + "-" + month
-    } else {
-        if (!isNaN(year)) {
-            dateYm = year + "-"
-        }
-    }
-
-    const oneSubmarine = submarine && (submarine.indexOf("1") >= 0 || submarine.indexOf("2") >= 0 || submarine.indexOf("3") >= 0 || submarine.indexOf("4") >= 0)
-
+const recordView = (yearMonth, submarine) => {
     let totalGets = 0
-    let day = 0
+    let dayMap = new Map()
+    let count = 0
     let html = []
     for (let i = 0; i < records.length; i++) {
         const item = records[i]
         const date = item.date
 
-        if (dateYm && date.indexOf(dateYm) < 0) {
+        if (yearMonth && yearMonth != "all" && date.indexOf(yearMonth) < 0) {
             continue
         }
 
         const ship = item.ship
-        if (oneSubmarine === true && submarine !== ship) {
+        if (submarine && submarine != "all" && ship.indexOf(submarine) < 0) {
             continue
         }
 
@@ -180,7 +68,8 @@ const recordView = (year, month, submarine) => {
             getsText.push("無")
         }
         totalGets = Number(totalGets).add(gets)
-        day++
+        dayMap.set(date, "")
+        count++
 
         const getsTextView = getsText.join("，")
         const getsView = Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(gets)
@@ -194,12 +83,14 @@ const recordView = (year, month, submarine) => {
         html.push(`</tr>`)
     }
 
-    const getDailyAvg = Number(totalGets).div(day)
+    const getDailyAvg = Number(totalGets).div(dayMap.size)
+    const getDailyAvg1 = Number(totalGets).div(count)
     const totalGetsView = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(totalGets)
     const getDailyAvgView = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(isNaN(getDailyAvg) ? 0 : getDailyAvg)
+    const getDailyAvg1View = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(isNaN(getDailyAvg1) ? 0 : getDailyAvg1)
 
     html.push(`<tr>`)
-    html.push(`<td class="text-right" colspan="5">每日平均：` + getDailyAvgView + ` &emsp;&emsp; 合計： ` + totalGetsView + ` </td>`)
+    html.push(`<td class="text-right" colspan="5">每日每船平均：` + getDailyAvg1View + ` &emsp;&emsp; 每日平均：` + getDailyAvgView + ` &emsp;&emsp; 合計： ` + totalGetsView + ` </td>`)
     html.push(`</tr>`)
     return html.join("")
 }

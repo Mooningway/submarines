@@ -1,7 +1,16 @@
 const SubmarinesData = {
-    years: ["Years", "2023"],
-    months: ["Months", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
-    submarines: ["Submarines", "1船", "2船", "3船", "4船"],
+    yms: [
+        { label: "Dates", value: "all" },
+        { label: "2023", value: "2023" },
+        { label: "2023-04", value: "2023-04" },
+    ],
+    submarines: [
+        { label: "Submarines", value: "all" },
+        { label: "I", value: "1" },
+        { label: "II", value: "2" },
+        { label: "III", value: "3" },
+        { label: "IV", value: "4" }
+    ],
     records: [
         { date: "2023-04-08", ship: "1船", remark: "第一次起航，祝願是一個好的開始~，但事與願違，帶回來的是一堆寶石......", details: {} },
         { date: "2023-04-09", ship: "1船", remark: "第二天，我已經放平心態了，果然仍然是一堆寶石。", details: {} },
@@ -20,6 +29,9 @@ const SubmarinesData = {
         { date: "2023-04-18", ship: "1船", remark: "寶石船。 ", details: {} },
         { date: "2023-04-18", ship: "2船", remark: "", details: { "沉船耳飾": 5 } },
         { date: "2023-04-18", ship: "3船", remark: "", details: { "沉船項鍊": 5 } },
+        { date: "2023-04-19", ship: "1船", remark: "", details: { "沉船戒指": 4, "上等沉船戒指": 4 } },
+        { date: "2023-04-19", ship: "2船", remark: "", details: { "上等沉船項鍊": 5 } },
+        { date: "2023-04-19", ship: "3船", remark: "寶石船。 ", details: {} },
     ],
     items: {
         "沉船戒指": 8000,
