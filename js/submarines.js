@@ -62,10 +62,10 @@ const recordView = (yearMonth, submarine) => {
                     getsText.push(dkey + " × " + num)
                 })
             } else {
-                getsText.push("無")
+                getsText.push("")
             }
         } else {
-            getsText.push("無")
+            getsText.push("")
         }
         totalGets = Number(totalGets).add(gets)
         dayMap.set(date, "")
@@ -78,7 +78,6 @@ const recordView = (yearMonth, submarine) => {
         html.push(`<td class="text-center">` + date + `</td>`)
         html.push(`<td class="text-center">` + ship + `</td>`)
         html.push(`<td class="text-left">` + getsTextView + `</td>`)
-        html.push(`<td class="text-left">` + item.remark + `</td>`)
         html.push(`<td class="text-right">` + getsView + `</td>`)
         html.push(`</tr>`)
     }
