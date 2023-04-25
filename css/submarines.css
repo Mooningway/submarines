@@ -99,3 +99,33 @@ body {
     border-bottom: 1px solid #FF9F0A;
     color: ghostwhite;
 }
+
+.get-items {
+    display: flex;
+}
+.get-item {
+    display: flex;
+    margin-right: 20px;
+}
+.get-item img {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+}
+.get-item div {
+    line-height: 20px;
+}
+
+.page {
+    display: flex;
+    margin: 16px 0;
+    color: ghostwhite;
+}
+.page li {
+    cursor: pointer;
+    margin: 0 4px;
+    list-style: none;
+}
+.page-active {
+    color: #FF9F0A;
+}

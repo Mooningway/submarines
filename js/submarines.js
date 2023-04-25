@@ -6,50 +6,72 @@ const items = SubmarinesData.items
 
 $(function () {
     // Init data
-    let currentDate = new Date()
-    let submarine = `all`
-    let year = currentDate.getFullYear()
-    let month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
+    const currentDate = new Date()
+    const year = currentDate.getFullYear()
+    const month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
+    const pageSize = 10
+    
     let date = year + `-` + month
+    let submarine = `all`
+    let page = 1
+    let query = {date: date, submarine: submarine}
+    let data = {}
 
-    // Elements
-    // Elements- records
-    let $records = $("#records")
     // Elements and Events - Year and Month
     let $yearMonth = $("#year-month")
     $yearMonth.eleSelect(yms, (value) => {
-        date = value
-        $records.html(recordView(date, submarine)) // Load submarines
+        page = 1
+        query.date = value
+        data = handleSubmarinesData(query)
+        renderSubmarinesData(data, page, pageSize)
     })
 
     // Elements and Events - Submarine
     let $submarine = $("#submarine")
     $submarine.eleSelect(submarines, (value) => {
-        submarine = value
-        $records.html(recordView(date, submarine)) // Load submarines
+        page = 1
+        query.submarine = value
+        data = handleSubmarinesData(query)
+        renderSubmarinesData(data, page, pageSize)
+    })
+
+    // Elements and Events - Page
+    data = handleSubmarinesData(query)
+    renderSubmarinesData(data, 1, pageSize)
+    let $dataPage = $(`#dataPage`)
+    $dataPage.elePage(10, data.data.length, (value) => {
+        page = value
+        renderSubmarinesData(data, value, pageSize)
     })
 })
 
-const recordView = (yearMonth, submarine) => {
-    let totalGets = 0
+const handleSubmarinesData = (query) => {
+    let data = []
+    let total = 0
+    let daily = 0
+    let dailyPreSub = 0
+
+    let queryDate = query.date
+    let querySubmarine = query.submarine
+    
     let dayMap = new Map()
     let count = 0
-    let html = []
-    for (let i = 0; i < records.length; i++) {
+
+    for (let i = records.length - 1; i >= 0; i--) {
         const item = records[i]
         const date = item.date
 
-        if (yearMonth && yearMonth != "all" && date.indexOf(yearMonth) < 0) {
+        if (queryDate && queryDate != "all" && date.indexOf(queryDate) < 0) {
             continue
         }
 
         const ship = item.ship
-        if (submarine && submarine != "all" && ship.indexOf(submarine) < 0) {
+        if (querySubmarine && querySubmarine != "all" && ship !== querySubmarine) {
             continue
         }
 
         let gets = 0
-        let getsText = []
+        let getsItems = []
         let details = item.details
         if (details) {
             let detailKeys = Object.keys(details)
@@ -59,37 +81,65 @@ const recordView = (yearMonth, submarine) => {
                     let price = items[dkey]
                     let tempPrice = Number(num).mul(price)
                     gets = Number(gets).add(tempPrice)
-                    getsText.push(dkey + " × " + num)
+                    getsItems.push({ key: dkey, num: num })
                 })
-            } else {
-                getsText.push("")
             }
-        } else {
-            getsText.push("")
         }
-        totalGets = Number(totalGets).add(gets)
+        total = Number(total).add(gets)
         dayMap.set(date, "")
         count++
 
-        const getsTextView = getsText.join("，")
-        const getsView = Intl.NumberFormat("en-IN", { maximumSignificantDigits: 3 }).format(gets)
-
-        html.push(`<tr>`)
-        html.push(`<td class="text-center">` + date + `</td>`)
-        html.push(`<td class="text-center">` + ship + `</td>`)
-        html.push(`<td class="text-left">` + getsTextView + `</td>`)
-        html.push(`<td class="text-right">` + getsView + `</td>`)
-        html.push(`</tr>`)
+        data.push({ date: date, submarine: item.ship, items: getsItems, total: gets.amount() })
     }
 
-    const getDailyAvg = Number(totalGets).div(dayMap.size)
-    const getDailyAvg1 = Number(totalGets).div(count)
-    const totalGetsView = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(totalGets)
-    const getDailyAvgView = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(isNaN(getDailyAvg) ? 0 : getDailyAvg)
-    const getDailyAvg1View = Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(isNaN(getDailyAvg1) ? 0 : getDailyAvg1)
+    daily = Number(total).div(dayMap.size)
+    dailyPreSub = Number(total).div(count)
+
+    let result = {}
+    result.total = total.amount()
+    result.daily = daily.amount()
+    result.dailyPreSub = dailyPreSub.amount()
+    result.data = data
+    return result
+}
+
+const renderSubmarinesData = (data, page, pageSize) => {
+    let records = data.data
+    let start = (page - 1) * pageSize
+    if (start < 0) {
+        start = 0
+    }
+    let end = page * pageSize
+    if (end > records.length) {
+        end = records.length
+    }
+    let html = []
+    for (let i = start; i < end; i++) {
+        const r = records[i]
+
+        let itemHtml = []
+        r.items.forEach((ritem) => {
+            itemHtml.push(`<div class="get-item">`)
+            itemHtml.push(`<img src="./image/` + ritem.key + `.png" >`)
+            itemHtml.push(`<div>` + ritem.num + `</div>`)
+            itemHtml.push(`</div>`)
+        })
+
+        html.push(`<tr>`)
+        html.push(`<td class="text-center">` + r.date + `</td>`)
+        html.push(`<td class="text-center">` + r.submarine + `</td>`)
+        html.push(`<td class="text-left"><div class="get-items">` + itemHtml.join(``) + `</div></td>`)
+        html.push(`<td class="text-right">` + r.total + `</td>`)
+        html.push(`<tr>`)
+    }
 
     html.push(`<tr>`)
-    html.push(`<td class="text-right" colspan="5">每日每船平均：` + getDailyAvg1View + ` &emsp;&emsp; 每日平均：` + getDailyAvgView + ` &emsp;&emsp; 合計： ` + totalGetsView + ` </td>`)
+    html.push(`<td class="text-right" colspan="5">每日每船平均：` + data.dailyPreSub + ` &emsp;&emsp; 每日平均：` + data.daily + ` &emsp;&emsp; 合計： ` + data.total + ` </td>`)
     html.push(`</tr>`)
-    return html.join("")
+
+    $("#records").html(html.join(``))
+
+    $(`#dataPage`).elePage(10, records.length, (value) => {
+        renderSubmarinesData(data, value, pageSize)
+    })
 }
