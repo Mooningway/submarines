@@ -16,7 +16,6 @@
     }
 
     Number.prototype.amount = function () {
-        console.log(this)
         return Intl.NumberFormat(`en-US`).format(isNaN(this) ? 0 :this)
     }
 
