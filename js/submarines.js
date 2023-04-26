@@ -139,7 +139,7 @@ const renderSubmarinesData = (data, page, pageSize) => {
 
     $("#records").html(html.join(``))
 
-    $(`#dataPage`).elePage(10, records.length, (value) => {
+    $(`#dataPage`).elePage(page, 10, records.length, (value) => {
         renderSubmarinesData(data, value, pageSize)
     })
 }

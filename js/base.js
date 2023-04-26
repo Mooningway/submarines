@@ -58,14 +58,14 @@
         return this
     }
 
-    $.fn.elePage = function (pageSize = 10, total = 0, callback) {
+    $.fn.elePage = function (page = 1, pageSize = 10, total = 0, callback) {
         let temp = total % pageSize === 0 ? total.div(pageSize) / pageSize : total.div(pageSize).add(1)
         let totalPage = parseInt(temp)
 
         let html = []
         html.push(`<ul class="page">`)
         for (let i = 0; i < totalPage; i++) {
-            if (i === 0) {
+            if (page === (i + 1)) {
                 html.push(`<li class="page-active">` + (i + 1) + `</li>`)
             } else {
                 html.push(`<li>` + (i + 1) + `</li>`)
@@ -75,9 +75,6 @@
         $(this).html(html.join(``))
 
         $(this).on(`click`, `li`, function () {
-            $(this).prevAll().removeClass(`page-active`)
-            $(this).nextAll().removeClass(`page-active`)
-            $(this).addClass(`page-active`)
             let index = $(this).index() + 1
             callback(index)
         })
