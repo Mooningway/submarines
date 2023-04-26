@@ -16,7 +16,8 @@
     }
 
     Number.prototype.amount = function () {
-        return Intl.NumberFormat(`en-US`, { maximumSignificantDigits: 3 }).format(isNaN(this) ? 0 : this)
+        console.log(this)
+        return Intl.NumberFormat(`en-US`).format(isNaN(this) ? 0 :this)
     }
 
     $.fn.eleSelect = function (records, callback) {

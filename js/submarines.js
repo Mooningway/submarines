@@ -92,8 +92,8 @@ const handleSubmarinesData = (query) => {
         data.push({ date: date, submarine: item.ship, items: getsItems, total: gets.amount() })
     }
 
-    daily = Number(total).div(dayMap.size)
-    dailyPreSub = Number(total).div(count)
+    daily = parseInt(Number(total).div(dayMap.size))
+    dailyPreSub = parseInt(Number(total).div(count))
 
     let result = {}
     result.total = total.amount()
