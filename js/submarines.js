@@ -38,8 +38,7 @@ $(function () {
     // Elements and Events - Page
     data = handleSubmarinesData(query)
     renderSubmarinesData(data, 1, pageSize)
-    let $dataPage = $(`#dataPage`)
-    $dataPage.elePage(10, data.data.length, (value) => {
+    $(`#dataPage`).elePage(page, 10, data.data.length, (value) => {
         page = value
         renderSubmarinesData(data, value, pageSize)
     })

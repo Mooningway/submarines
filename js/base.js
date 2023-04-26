@@ -59,7 +59,7 @@
     }
 
     $.fn.elePage = function (page = 1, pageSize = 10, total = 0, callback) {
-        let temp = total % pageSize === 0 ? total.div(pageSize) / pageSize : total.div(pageSize).add(1)
+        let temp = total % pageSize === 0 ? Number(total).div(pageSize) : Number(total).div(pageSize).add(1)
         let totalPage = parseInt(temp)
 
         let html = []
