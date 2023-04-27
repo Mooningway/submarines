@@ -4,45 +4,41 @@ const submarines = SubmarinesData.submarines
 const records = SubmarinesData.records
 const items = SubmarinesData.items
 
+// Init data
+const currentDate = new Date()
+const year = currentDate.getFullYear()
+const month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
+const pageSize = 10
+
 $(function () {
-    // Init data
-    const currentDate = new Date()
-    const year = currentDate.getFullYear()
-    const month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
-    const pageSize = 10
-    
+    // Query params
     let date = year + `-` + month
     let submarine = `all`
-    let page = 1
-    let query = {date: date, submarine: submarine}
-    let data = {}
+    let query = { date: date, submarine: submarine }
 
     // Elements and Events - Year and Month
-    let $yearMonth = $("#year-month")
     $yearMonth.eleSelect(yms, (value) => {
-        page = 1
         query.date = value
-        data = handleSubmarinesData(query)
-        renderSubmarinesData(data, page, pageSize)
+        renderRecords(1, pageSize, query)
     })
 
     // Elements and Events - Submarine
-    let $submarine = $("#submarine")
-    $submarine.eleSelect(submarines, (value) => {
-        page = 1
+    $("#submarine").eleSelect(submarines, (value) => {
         query.submarine = value
-        data = handleSubmarinesData(query)
-        renderSubmarinesData(data, page, pageSize)
+        renderRecords(1, pageSize, query)
     })
 
-    // Elements and Events - Page
-    data = handleSubmarinesData(query)
-    renderSubmarinesData(data, 1, pageSize)
-    $(`#dataPage`).elePage(page, 10, data.data.length, (value) => {
-        page = value
-        renderSubmarinesData(data, value, pageSize)
-    })
+    // Render
+    renderRecords(1, pageSize, query)
 })
+
+const renderRecords = (page0, pageSize0, query) => {
+    const data = handleSubmarinesData(query)
+    renderSubmarinesData(data, 1, pageSize0)
+    $(`#dataPage`).elePage(page0, pageSize0, data.data.length, (page1) => {
+        renderSubmarinesData(data, page1, pageSize0)
+    })
+}
 
 const handleSubmarinesData = (query) => {
     let data = []
@@ -52,7 +48,7 @@ const handleSubmarinesData = (query) => {
 
     let queryDate = query.date
     let querySubmarine = query.submarine
-    
+
     let dayMap = new Map()
     let count = 0
 
@@ -137,8 +133,4 @@ const renderSubmarinesData = (data, page, pageSize) => {
     html.push(`</tr>`)
 
     $("#records").html(html.join(``))
-
-    $(`#dataPage`).elePage(page, 10, records.length, (value) => {
-        renderSubmarinesData(data, value, pageSize)
-    })
 }

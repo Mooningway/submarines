@@ -59,23 +59,28 @@
     }
 
     $.fn.elePage = function (page = 1, pageSize = 10, total = 0, callback) {
+        const render = (current, end) => {
+            let html = []
+            html.push(`<ul class="page">`)
+            for (let i = 0; i < end; i++) {
+                if (current === (i + 1)) {
+                    html.push(`<li class="page-active">` + (i + 1) + `</li>`)
+                } else {
+                    html.push(`<li>` + (i + 1) + `</li>`)
+                }
+            }
+            html.push(`</ul>`)
+            return html.join(``)
+        }
+
         let temp = total % pageSize === 0 ? Number(total).div(pageSize) : Number(total).div(pageSize).add(1)
         let totalPage = parseInt(temp)
+        let $this = $(this)
+        $this.html(render(page, totalPage))
 
-        let html = []
-        html.push(`<ul class="page">`)
-        for (let i = 0; i < totalPage; i++) {
-            if (page === (i + 1)) {
-                html.push(`<li class="page-active">` + (i + 1) + `</li>`)
-            } else {
-                html.push(`<li>` + (i + 1) + `</li>`)
-            }
-        }
-        html.push(`</ul>`)
-        $(this).html(html.join(``))
-
-        $(this).on(`click`, `li`, function () {
+        $this.on(`click`, `li`, function () {
             let index = $(this).index() + 1
+            $this.html(render(index, totalPage))
             callback(index)
         })
 
