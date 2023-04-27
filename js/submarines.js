@@ -17,7 +17,7 @@ $(function () {
     let query = { date: date, submarine: submarine }
 
     // Elements and Events - Year and Month
-    $yearMonth.eleSelect(yms, (value) => {
+    $("#year-month").eleSelect(yms, (value) => {
         query.date = value
         renderRecords(1, pageSize, query)
     })
