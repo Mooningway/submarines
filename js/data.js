@@ -53,6 +53,9 @@ const SubmarinesData = {
         { date: "2023-04-26", ship: "I", details: { "ring1": 4, "earrings1": 4 } },
         { date: "2023-04-26", ship: "II", details: { "necklace1": 5 } },
         { date: "2023-04-26", ship: "III", details: { "earrings0": 9 } },
+        { date: "2023-04-27", ship: "I", details: { } },
+        { date: "2023-04-27", ship: "II", details: { "bracelet0": 4 } },
+        { date: "2023-04-27", ship: "III", details: { "necklace0": 5 } },
     ],
     items: {
         "ring0": 8000,
