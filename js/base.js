@@ -16,7 +16,7 @@
     }
 
     Number.prototype.amount = function () {
-        return Intl.NumberFormat(`en-US`).format(isNaN(this) ? 0 :this)
+        return Intl.NumberFormat(`en-US`).format(isNaN(this) ? 0 : this)
     }
 
     $.fn.eleSelect = function (records, callback) {
@@ -88,7 +88,7 @@
     }
 
     $.extend({
-        totalPage: function(pageSize = 10, total = 0) {
+        totalPage: function (pageSize = 10, total = 0) {
             let result = total % pageSize === 0 ? total.div(pageSize) / pageSize : total.div(pageSize).add(1)
             return parseInt(result)
         }

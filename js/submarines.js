@@ -5,16 +5,11 @@ const records = SubmarinesData.records
 const items = SubmarinesData.items
 
 // Init data
-const currentDate = new Date()
-const year = currentDate.getFullYear()
-const month = (currentDate.getMonth() + 1) < 10 ? ("0" + (currentDate.getMonth() + 1)) : ("" + (currentDate.getMonth() + 1))
 const pageSize = 10
 
 $(function () {
     // Query params
-    let date = year + `-` + month
-    let submarine = `all`
-    let query = { date: date, submarine: submarine }
+    let query = { date: `all`, submarine: `all` }
 
     // Elements and Events - Year and Month
     $("#year-month").eleSelect(yms, (value) => {
