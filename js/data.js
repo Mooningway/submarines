@@ -111,6 +111,9 @@ const SubmarinesData = {
         { "date": "2023-05-15", "ship": "I", "details": {} },
         { "date": "2023-05-15", "ship": "II", "details": { "bracelet0": 4, "bracelet1": 5 } },
         { "date": "2023-05-15", "ship": "III", "details": { "bracelet1": 5 } },
+        { "date": "2023-05-16", "ship": "I", "details": { "ring0": 5 } },
+        { "date": "2023-05-16", "ship": "II", "details": { "bracelet0": 5, "necklace0": 4, "earrings1": 5 } },
+        { "date": "2023-05-16", "ship": "III", "details": { "ring1": 5, "earrings1": 5 } },
     ],
     items: {
         "ring0": 8000,
