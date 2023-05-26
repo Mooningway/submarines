@@ -4,6 +4,7 @@ const SubmarinesData = {
         { label: "2023", value: "2023" },
         { label: "2023-04", value: "2023-04" },
         { label: "2023-05", value: "2023-05" },
+        { label: "2023-06", value: "2023-06" },
     ],
     submarines: [
         { label: "Submarines", value: "all" },
@@ -138,6 +139,38 @@ const SubmarinesData = {
         { "date": "2023-05-24", "ship": "I", "details": { "necklace1": 4 } },
         { "date": "2023-05-24", "ship": "II", "details": { "ring0": 5, "bracelet1": 4 } },
         { "date": "2023-05-24", "ship": "III", "details": {} },
+        { "date": "2023-05-25", "ship": "I", "details": { "bracelet1": 5 } },
+        { "date": "2023-05-25", "ship": "II", "details": { "bracelet1": 5 } },
+        { "date": "2023-05-25", "ship": "III", "details": { "necklace1": 5 } },
+
+        { "date": "2023-05-26", "ship": "I", "details": {} },
+        { "date": "2023-05-26", "ship": "II", "details": {} },
+        { "date": "2023-05-26", "ship": "III", "details": {} },
+
+        { "date": "2023-05-27", "ship": "I", "details": {} },
+        { "date": "2023-05-27", "ship": "II", "details": {} },
+        { "date": "2023-05-27", "ship": "III", "details": {} },
+
+        { "date": "2023-05-28", "ship": "I", "details": {} },
+        { "date": "2023-05-28", "ship": "II", "details": {} },
+        { "date": "2023-05-28", "ship": "III", "details": {} },
+
+        { "date": "2023-05-29", "ship": "I", "details": {} },
+        { "date": "2023-05-29", "ship": "II", "details": {} },
+        { "date": "2023-05-29", "ship": "III", "details": {} },
+
+        { "date": "2023-05-30", "ship": "I", "details": {} },
+        { "date": "2023-05-30", "ship": "II", "details": {} },
+        { "date": "2023-05-30", "ship": "III", "details": {} },
+
+        { "date": "2023-05-31", "ship": "I", "details": {} },
+        { "date": "2023-05-31", "ship": "II", "details": {} },
+        { "date": "2023-05-31", "ship": "III", "details": {} },
+
+        { "date": "2023-06-01", "ship": "I", "details": {} },
+        { "date": "2023-06-01", "ship": "II", "details": {} },
+        { "date": "2023-06-01", "ship": "III", "details": {} },
+        { "date": "2023-06-01", "ship": "IV", "details": {} },
     ],
     items: {
         "ring0": 8000,
