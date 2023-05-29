@@ -142,18 +142,15 @@ const SubmarinesData = {
         { "date": "2023-05-25", "ship": "I", "details": { "bracelet1": 5 } },
         { "date": "2023-05-25", "ship": "II", "details": { "bracelet1": 5 } },
         { "date": "2023-05-25", "ship": "III", "details": { "necklace1": 5 } },
-
         { "date": "2023-05-26", "ship": "I", "details": {} },
-        { "date": "2023-05-26", "ship": "II", "details": {} },
-        { "date": "2023-05-26", "ship": "III", "details": {} },
-
+        { "date": "2023-05-26", "ship": "II", "details": { "bracelet1": 5 } },
+        { "date": "2023-05-26", "ship": "III", "details": { "necklace0": 5 } },
         { "date": "2023-05-27", "ship": "I", "details": {} },
-        { "date": "2023-05-27", "ship": "II", "details": {} },
-        { "date": "2023-05-27", "ship": "III", "details": {} },
-
-        { "date": "2023-05-28", "ship": "I", "details": {} },
+        { "date": "2023-05-27", "ship": "II", "details": { "ring0": 5, "necklace0": 5 } },
+        { "date": "2023-05-27", "ship": "III", "details": { "ring1": 10, "necklace1": 5 } },
+        { "date": "2023-05-28", "ship": "I", "details": { "necklace0": 5, "bracelet1": 4 } },
         { "date": "2023-05-28", "ship": "II", "details": {} },
-        { "date": "2023-05-28", "ship": "III", "details": {} },
+        { "date": "2023-05-28", "ship": "III", "details": { "ring1": 10, } },
 
         { "date": "2023-05-29", "ship": "I", "details": {} },
         { "date": "2023-05-29", "ship": "II", "details": {} },
